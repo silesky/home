@@ -716,6 +716,7 @@ function! SessionInit()
   let g:startify_lists = [
   \ { 'type': 'commands',  'header': ['   Commands']       },
   \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
+  \ { 'type': function('ListCommits'), 'header': ['   Commits'] },
   \ ]
 endfunction
 
@@ -727,6 +728,22 @@ function! SessionClose() abort
   call startify#session_delete_buffers()
   call UnstartifySession()
   Startify
+endfunction
+
+" let g:startify_commands = [
+" \ ':help reference',
+" \ ['Vim Reference', 'h ref'],
+" \ {'h': 'h ref'},
+" \ {'m': ['My magical function', 'call Magic()']},
+" \ ]
+
+" g:startify_session_dir
+
+function! ListCommits()
+  let git = 'git'
+  let commits = systemlist(git .' log --oneline | head -n10')
+  let git = 'G'. git[1:]
+  return map(commits, '{"line": matchstr(v:val, "\\s\\zs.*"), "cmd": "'. git .' show ". matchstr(v:val, "^\\x\\+") }')
 endfunction
 
 command! -nargs=0 SessionInit call SessionInit()
