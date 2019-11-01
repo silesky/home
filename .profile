@@ -24,3 +24,5 @@ fi
 #     automagically).
 _PROFILE_LOADED=$(date +%s)
 export _PROFILE_LOADED
+
+export PATH="$HOME/.cargo/bin:$PATH"
