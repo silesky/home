@@ -21,6 +21,10 @@ if empty(glob($VIMHOME.'/autoload/plug.vim'))
     autocmd VimEnter * PlugInstall | source $MYVIMRC
 endif
 
+" TODO parameterize? discover?
+let g:python3_host_prog = '/usr/local/opt/python@3.8/bin/python3'
+let g:loaded_python_provider = 0 " only py3k
+
 call plug#begin($VIMHOME.'/plugged')
 
 " better defaults out of the box
